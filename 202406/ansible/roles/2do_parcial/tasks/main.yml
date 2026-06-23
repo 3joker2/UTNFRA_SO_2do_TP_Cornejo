@@ -1,0 +1,26 @@
+---
+- name: creo los directorios
+  file:
+    path: "/tmp/2do_parcial/{{ item }}"
+    state: directory
+    mode: '0755'
+  loop:
+    - alumno
+    - equipo
+
+- name: copio template del alumno
+  template:
+    src: template_alumno.j2
+    dest: /tmp/2do_parcial/alumno/datos_alumno.txt
+
+- name: copio template del equipo
+  template:
+    src: template_equipo.j2
+    dest: /tmp/2do_parcial/equipo/datos_equipo.txt
+
+- name: agrego sudoers para 2PSupervisores
+  lineinfile:
+    path: /etc/sudoers
+    state: present
+    line: '%2PSupervisores ALL=(ALL:ALL) NOPASSWD:ALL'
+    validate: 'visudo -cf %s'

@@ -1,0 +1,2 @@
+IP: {{ ansible_default_ipv4.address if ansible_default_ipv4 is defined else 'N/A' }}
+Hostname: {{ ansible_hostname if ansible_hostname is defined else 'N/A' }}
